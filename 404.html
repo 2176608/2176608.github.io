@@ -55,7 +55,7 @@ gtag('config', 'G-7LF1LMQEVG');
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-07-10 10:08:49'
+  postUpdate: '2024-07-10 10:46:34'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
 
   const getComment = async () => {
     try {
-      const res = await fetch('https://preeminent-narwhal-b68963.netlify.app/.netlify/functions/comment/api/comment?type=recent&count=6', { method: 'GET' })
+      const res = await fetch('https://paddi.netlify.app/.netlify/functions/comment/api/comment?type=recent&count=6', { method: 'GET' })
       const result = await res.json()
       const walineArray = result.data.map(e => {
         return {

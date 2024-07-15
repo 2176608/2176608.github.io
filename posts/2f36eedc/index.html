@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
   const loadWaline = async () => {
     if (initFn) initWaline(initFn)
     else {
-      await getCSS('https://unpkg.com/@waline/client@v3/dist/waline.css')
+      await getCSS('/css/waline.css')
       const { init } = await import('/js/waline.js')
       initFn = init || Waline.init
       initWaline(initFn)

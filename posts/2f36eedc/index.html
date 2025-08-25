@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>0 基础搭建博客教程（一） | 懒羊羊的小宇宙</title><meta name="author" content="懒羊羊"><meta name="copyright" content="懒羊羊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="请注意，本文任何内容都只适用于 Windows 10 系统，其他系统不适用。   简介搭建方式使用 GitHub Pages 来搭建 Hexo 静态博客，可简单粗暴理解为把网站放在github的服务器下，且免费。 准备工作安装 Node.js点我下载 Node.js，如图：  下载完成后打开，然后一路点 next，最后点 Finish。 安装 Git点我下载 Git，下载速度可能特别慢，耐心等待。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0 基础搭建博客教程（一）">
+<meta property="og:url" content="https://lanyy.dpdns.org/posts/2f36eedc/index.html">
+<meta property="og:site_name" content="懒羊羊的小宇宙">
+<meta property="og:description" content="请注意，本文任何内容都只适用于 Windows 10 系统，其他系统不适用。   简介搭建方式使用 GitHub Pages 来搭建 Hexo 静态博客，可简单粗暴理解为把网站放在github的服务器下，且免费。 准备工作安装 Node.js点我下载 Node.js，如图：  下载完成后打开，然后一路点 next，最后点 Finish。 安装 Git点我下载 Git，下载速度可能特别慢，耐心等待。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://2176608.dpdns.org/paddi.png">
+<meta property="article:published_time" content="2024-07-11T08:25:03.000Z">
+<meta property="article:modified_time" content="2025-08-25T14:26:54.212Z">
+<meta property="article:author" content="懒羊羊">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://2176608.dpdns.org/paddi.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "0 基础搭建博客教程（一）",
+  "url": "https://lanyy.dpdns.org/posts/2f36eedc/",
+  "image": "https://2176608.dpdns.org/paddi.png",
+  "datePublished": "2024-07-11T08:25:03.000Z",
+  "dateModified": "2025-08-25T14:26:54.212Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "懒羊羊",
+      "url": "https://lanyy.dpdns.org"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://2176608.dpdns.org/favicon.ico"><link rel="canonical" href="https://lanyy.dpdns.org/posts/2f36eedc/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://unpkg.com/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-R2C1Z3Q7GS"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-R2C1Z3Q7GS')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-R2C1Z3Q7GS', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;b31c900d59f54caea544a956cdd4a9f7&quot;}"></script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '0 基础搭建博客教程（一）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "reojn3rcbl"); </script><link rel="stylesheet" href="/css/waline-meta.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://2176608.dpdns.org/paddi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/air/"><i class="fa-fw fa-solid fa-wind"></i><span> 夏日清凉</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa-solid fa-comments"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://2176608.dpdns.org/picture/1.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://2176608.dpdns.org/paddi.png" alt="Logo" loading='lazy'><span class="site-name">懒羊羊的小宇宙</span></a><a class="nav-page-title" href="/"><span class="site-name">0 基础搭建博客教程（一）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/air/"><i class="fa-fw fa-solid fa-wind"></i><span> 夏日清凉</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fa-solid fa-comments"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">0 基础搭建博客教程（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-11T08:25:03.000Z" title="发表于 2024-07-11 08:25:03">2024-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-25T14:26:54.212Z" title="更新于 2025-08-25 14:26:54">2025-08-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">博客搭建教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span class="waline-pageview-count" data-path="/posts/2f36eedc/"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:50,&quot;messagePrev&quot;:&quot;距离上次更新已有&quot;,&quot;messageNext&quot;:&quot;天, 文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-08-25 14:26:54&quot;}" hidden></div><div class="note danger flat"><p>请注意，本文任何内容都只适用于 Windows 10 系统，其他系统不适用。</p>
+</div>
+
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="搭建方式"><a href="#搭建方式" class="headerlink" title="搭建方式"></a>搭建方式</h2><p>使用 GitHub Pages 来搭建 Hexo 静态博客，可简单粗暴理解为把网站放在github的服务器下，且免费。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://nodejs.org/zh-cn/download/prebuilt-installer/current">点我</a>下载 Node.js，如图：</p>
+<p><img src="https://2176608.dpdns.org/picture/node.js.png" alt="Node.js下载页面" loading='lazy'></p>
+<p>下载完成后打开，然后一路点 <code>next</code>，最后点 <code>Finish</code>。</p>
+<h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://git-scm.com/">点我</a>下载 Git，下载速度可能特别慢，耐心等待。如图：</p>
+<p><img src="https://2176608.dpdns.org/picture/git.png" alt="Git 下载界面" loading='lazy'></p>
+<p>安装过程和 Node.js 一样，此处不再重复。</p>
+<h1 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h1><h2 id="安装-Hexo（运行git命令教程）"><a href="#安装-Hexo（运行git命令教程）" class="headerlink" title="安装 Hexo（运行git命令教程）"></a>安装 Hexo（运行git命令教程）</h2><p>新建<strong>存放博客的文件夹</strong>，然后在此文件夹中右键，点击<code>Open Git Bash here</code>，意为打开 Bash ，如图：</p>
+<p><img src="https://2176608.dpdns.org/picture/bash.png" loading='lazy'></p>
+<p>然后在此页面中输入以下命令以安装Hexo：（直接复制粘贴，粘贴时在此窗口点击右键，点击 <code>Paste</code>）</p>
+<p>具体操作如下图：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://2176608.dpdns.org/picture/bash1.png" alt="1" loading='lazy'></p>
+<p><img src="https://2176608.dpdns.org/picture/paste.png" alt="2" loading='lazy'></p>
+<p>然后回车（点击键盘上的Enter）运行即可。</p>
+<div class="note warning flat"><p>上述流程为运行命令教程。</p>
+<p><code>除另外说明</code>，以后<code>直接给命令让运行的</code>都默认按照此流程执行。</p>
+</div>
+
+<p>运行后出现<code>类似于</code>这样的页面就安装成功了：</p>
+<p><img src="https://2176608.dpdns.org/picture/success.png" loading='lazy'></p>
+<h2 id="配置淘宝镜像源"><a href="#配置淘宝镜像源" class="headerlink" title="配置淘宝镜像源"></a>配置淘宝镜像源</h2><p>由于众所周知的原因，使用 npm 访问一些资源时有时会遇到拒绝访问的情况。要解决这个问题，我们可以使用国内的淘宝镜像源。</p>
+<p>直接运行此命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hexo-初始化"><a href="#Hexo-初始化" class="headerlink" title="Hexo 初始化"></a>Hexo 初始化</h2><p>继续在此窗口操作，运行这条命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>若运行结果的每一行均以’INFO’开头，则表明初始化完成。</p>
+<h2 id="安装-npm"><a href="#安装-npm" class="headerlink" title="安装 npm"></a>安装 npm</h2><p>继续在此窗口操作，运行这条命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h2 id="博客预览"><a href="#博客预览" class="headerlink" title="博客预览"></a>博客预览</h2><p>最后，运行这条命令，如果像下图一样没有报错，就可以在本地访问你的博客了，在浏览器输入<code>http://localhost4000/</code>以预览博客，按 Ctrl + C 停止预览：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://2176608.dpdns.org/picture/finally.png" loading='lazy'></p>
+<p>可能你会感觉这个博客太简陋了，别急，一步一步来。</p>
+<h1 id="博客部署"><a href="#博客部署" class="headerlink" title="博客部署"></a>博客部署</h1><p>刚才你访问的博客只能在本地访问自己看到，还无法联网让其他人看到，现在我们就把博客部署（可以理解为上传）到 GitHub 上让其他人看到。</p>
+<h2 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="下载-Watt-Toolkit（原名-Steam-）"><a href="#下载-Watt-Toolkit（原名-Steam-）" class="headerlink" title="下载 Watt Toolkit（原名 Steam++ ）"></a>下载 Watt Toolkit（原名 Steam++ ）</h3><div class="note info flat"><p>能访问GitHub的可忽略此小节，不能访问的往下看。</p>
+</div>
+
+<p>既然搭建方式是使用 Github Pages 来搭建，那就必须能访问 Github，但是，部分地区可能会遇到不能访问 Github 的情况，本节的撰写就是为了帮助不能访问 Github 的人能正常访问 Github。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://steampp.net/">点我</a>去官网下载，如有问题可<a target="_blank" rel="noopener external nofollow noreferrer" href="https://steampp.net/faq">点我</a>去官网查看常见问题及解决方案。</p>
+<p>下载安装完成后，打开它，点击左侧第二个闪电图标“网络加速”选项，滚轮往下滑找到并勾选 GitHub 选项，点击右上角 “<code>一键加速</code>”，就可以访问 GitHub 了。</p>
+<p>如图：</p>
+<p><img src="https://2176608.dpdns.org/picture/steam.png" alt="Steam++ 页面" loading='lazy'></p>
+<h3 id="安装hexo-deployer-git插件"><a href="#安装hexo-deployer-git插件" class="headerlink" title="安装hexo-deployer-git插件"></a>安装<code>hexo-deployer-git</code>插件</h3><div class="note danger flat"><p>不要忽略此小节！！！</p>
+</div>
+
+<p>这样才可以用命令把博客部署到 Github 上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="注册-Github-账户"><a href="#注册-Github-账户" class="headerlink" title="注册 Github 账户"></a>注册 Github 账户</h2><p>不能访问 GitHub 的，和本文2.1一样，并且在2.1的基础上多打一个“国外验证码平台”的勾，因为在注册 Github 时，需要完成人机验证，而人机验证有时可能加载不出来，所以要勾上这个。</p>
+<p>进入 Github 页面，点击右上角的<code>Sign-up</code></p>
+<p><img src="https://2176608.dpdns.org/picture/github.png" alt="Github 注册" loading='lazy'></p>
+<p>然后根据网页指引，填写你的邮箱，设置密码，剩下的怎么填都无所谓，但<code>有一点要注意，你的 Github 用户名直接与你的域名挂钩！</code>当博客成功部署到 Github上时，会给你一个“<code>XXXX.github.io</code>“域名，其中的XXXX就是你的 Github 用户名！</p>
+<h2 id="创建“仓库”"><a href="#创建“仓库”" class="headerlink" title="创建“仓库”"></a>创建“仓库”</h2><p>登录后，点击左边的绿色按钮<code>create repository</code>，如果你已经有仓库了，就点绿色按钮<code>new</code></p>
+<p>这里要注意，<code>仓库名字（Repository name）和用户名（Owner）必须一摸一样！且必须写成XXX.github.io样式，类型必须选择Public</code>（我这里已经建好了，才会出现报错）如下图：</p>
+<p><img src="https://2176608.dpdns.org/picture/signup.png" alt="创建“仓库”注意事项" loading='lazy'></p>
+<p>完成后在<code>页面最低端</code>点击绿色按钮<code>Create repository</code>，这样仓库就建好了。</p>
+<h2 id="将-Github-仓库和本地文件关联起来"><a href="#将-Github-仓库和本地文件关联起来" class="headerlink" title="将 Github 仓库和本地文件关联起来"></a>将 Github 仓库和本地文件关联起来</h2><p>完成后，点击按钮<code>ssh</code>，复制 SSH ：</p>
+<p><img src="https://2176608.dpdns.org/picture/5565.png" alt="有点差别，但是都一样。" loading='lazy'></p>
+<p>按照下列格式粘贴到博客站点配置文件<code>你的博客文件夹/_config.yml</code>中，具体格式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: your ssh</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+
+<div class="note warning flat"><p>请注意，要把 repo 后面的“your ssh”更改为你刚才复制的 ssh！！！</p>
+</div>
+
+<p><img src="https://2176608.dpdns.org/picture/yuanban.png" alt="原版" loading='lazy'></p>
+<p><img src="https://2176608.dpdns.org/picture/gai.png" alt="直接改" loading='lazy'></p>
+<p>接下来，开始建立联系，运行下列命令，<code>一个一个来执行</code>：</p>
+<div class="note warning flat"><p>请注意，要把下面的 “<code>your Github name</code>” 和 “<code>your Github email</code>“ （不包括引号）分别改成你自己的 Github 用户名和注册 Github 时所用的邮箱！！！</p>
+</div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;your Github name&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;your Github email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-SSH"><a href="#创建-SSH" class="headerlink" title="创建 SSH"></a>创建 SSH</h3><p>还有个问题，虽然这样可以把博客部署到 Github 上了，但是每次部署都需要输入你的 <code>GitHub 账户的</code>密码，否则就不能上传。想解决这个问题，就创建 SSH（别问这是什么，照做就行）。</p>
+<p>新建 <code>SSH key</code>，<code>在cmd中</code>输入如下命令，<code>注意大小写</code>：</p>
+<div class="note warning flat"><p>请注意，要把下面的 “your email” （不包括引号）改成你注册 Github 时所用的邮箱！！！</p>
+</div>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-C</span> <span class="string">&quot;your Email&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后出现：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> which to save the key (/c/Users/电脑名/.ssh/id_rsa):</span><br></pre></td></tr></table></figure>
+
+<p><code>这一步告诉你生成的 SSH 在哪里，下文中会用到</code>，直接回车即可。</p>
+<p>然后出现：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br></pre></td></tr></table></figure>
+
+<p>这一步是要求你设置密码，这个密码会在部署博客到 Github 时（运行hexo d时）使用，可以直接回车，意为不设置密码。</p>
+<p>然后出现：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">BASH</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/电脑名/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/电脑名/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line"><span class="number">65</span>:<span class="number">69</span>:······<span class="number">02</span>:<span class="number">4</span>b emailname@email.com</span><br><span class="line">The key<span class="string">&#x27;s randomart image is:</span></span><br><span class="line"><span class="string">+--[ RSA 2048]----+</span></span><br><span class="line"><span class="string">|                 |</span></span><br><span class="line"><span class="string">|       .   o .   |</span></span><br><span class="line"><span class="string">|    . o o = o    |</span></span><br><span class="line"><span class="string">|   . o * = o     |</span></span><br><span class="line"><span class="string">|  E  o + o .     |</span></span><br><span class="line"><span class="string">| . o.   . .      |</span></span><br><span class="line"><span class="string">|     ..          |</span></span><br><span class="line"><span class="string">+-----------------+</span></span><br></pre></td></tr></table></figure>
+
+<p>意为密钥成功生成，关闭窗口。</p>
+<h3 id="在-Github-上添加-SSH-key"><a href="#在-Github-上添加-SSH-key" class="headerlink" title="在 Github 上添加 SSH key"></a>在 Github 上添加 SSH key</h3><p>打开本地文件：<code>id_rsa.pub</code>（位置已在“创建 SSH”小节中介绍），直接打开复制。</p>
+<p>然后登录 GitHub，点击<code>右上角的头像</code>——<code>Settings</code>——<code>SSH and GPG keys</code>，具体流程见下图：</p>
+<p><img src="https://2176608.dpdns.org/picture/touxiang.png" alt="1" loading='lazy'></p>
+<p><img src="https://2176608.dpdns.org/picture/settings.png" alt="2" loading='lazy'></p>
+<p><img src="https://2176608.dpdns.org/picture/createssh.png" alt="3" loading='lazy'></p>
+<p><img src="https://2176608.dpdns.org/picture/newsshkey.png" alt="4" loading='lazy'></p>
+<p>将刚才复制的内容粘贴在<code>key文本框</code>里，title可以不填。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><strong>在 cmd</strong> 运行此命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh <span class="literal">-T</span> git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>如果提示：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Are you sure you want to <span class="keyword">continue</span> connecting (yes/no)?</span><br></pre></td></tr></table></figure>
+
+<p>输入 yes 并回车。</p>
+<p>像下图这样即为成功：</p>
+<p><img src="https://2176608.dpdns.org/picture/ceshi.png" loading='lazy'></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>然后就可以部署你的博客到 github 了，在 bash 运行此命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<p>类似于图中这样的即为成功：</p>
+<p><img src="https://2176608.dpdns.org/picture/hexod.png" loading='lazy'></p>
+<p>至此恭喜你，你已经有了一个简单的博客！接下来我将会介绍如何美化你自己的博客。</p>
+<p>至此第一章结束，有什么问题也可以在评论区留言。当然，最好还是先上网查询解决方法，因为这是解决问题最快的方式.。如果本文哪些地方有问题，欢迎指出。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lanyy.dpdns.org">懒羊羊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lanyy.dpdns.org/posts/2f36eedc/">https://lanyy.dpdns.org/posts/2f36eedc/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://lanyy.dpdns.org" target="_blank">懒羊羊的小宇宙</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a></div></div><nav class="pagination-post" id="pagination"></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://2176608.dpdns.org/paddi.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">懒羊羊</div><div class="author-info-description">抛弃一切的烦恼，做快乐的自己！</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎！！！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">搭建方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node-js"><span class="toc-number">2.1.</span> <span class="toc-text">安装 Node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Git"><span class="toc-number">2.2.</span> <span class="toc-text">安装 Git</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-number">3.</span> <span class="toc-text">创建博客</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo%EF%BC%88%E8%BF%90%E8%A1%8Cgit%E5%91%BD%E4%BB%A4%E6%95%99%E7%A8%8B%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">安装 Hexo（运行git命令教程）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F%E6%BA%90"><span class="toc-number">3.2.</span> <span class="toc-text">配置淘宝镜像源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.3.</span> <span class="toc-text">Hexo 初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-npm"><span class="toc-number">3.4.</span> <span class="toc-text">安装 npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E9%A2%84%E8%A7%88"><span class="toc-number">3.5.</span> <span class="toc-text">博客预览</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2"><span class="toc-number">4.</span> <span class="toc-text">博客部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-1"><span class="toc-number">4.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-Watt-Toolkit%EF%BC%88%E5%8E%9F%E5%90%8D-Steam-%EF%BC%89"><span class="toc-number">4.1.1.</span> <span class="toc-text">下载 Watt Toolkit（原名 Steam++ ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo-deployer-git%E6%8F%92%E4%BB%B6"><span class="toc-number">4.1.2.</span> <span class="toc-text">安装hexo-deployer-git插件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C-Github-%E8%B4%A6%E6%88%B7"><span class="toc-number">4.2.</span> <span class="toc-text">注册 Github 账户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E2%80%9C%E4%BB%93%E5%BA%93%E2%80%9D"><span class="toc-number">4.3.</span> <span class="toc-text">创建“仓库”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86-Github-%E4%BB%93%E5%BA%93%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%85%B3%E8%81%94%E8%B5%B7%E6%9D%A5"><span class="toc-number">4.4.</span> <span class="toc-text">将 Github 仓库和本地文件关联起来</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-SSH"><span class="toc-number">4.4.1.</span> <span class="toc-text">创建 SSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-Github-%E4%B8%8A%E6%B7%BB%E5%8A%A0-SSH-key"><span class="toc-number">4.4.2.</span> <span class="toc-text">在 Github 上添加 SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">4.4.3.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-number">4.5.</span> <span class="toc-text">部署</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2f36eedc/" title="0 基础搭建博客教程（一）">0 基础搭建博客教程（一）</a><time datetime="2024-07-11T08:25:03.000Z" title="发表于 2024-07-11 08:25:03">2024-07-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://2176608.dpdns.org/picture/1.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2024 - 2025 By 懒羊羊</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="https://unpkg.com/instant.page/instantpage.js" type="module"></script><script src="https://unpkg.com/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  let initFn = window.walineFn || null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"emoji":["https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/tieba"],"reaction":true,"comment":true,"turnstileKey":"0x4AAAAAABkYAprTaTXTv40a","login":"disable","locale":{"nick":"（可选）昵称","mail":"（可选）邮箱","link":"（可选）网址","placeholder":"支持不填写昵称、邮箱、网址直接评论（如填写邮箱可收到作者回复）"}}
+
+  const destroyWaline = ele => ele.destroy()
+
+  const initWaline = (Fn, el = document, path = window.location.pathname) => {
+    const waline = Fn({
+      el: el.querySelector('#waline-wrap'),
+      serverURL: 'https://lanyy.netlify.app/.netlify/functions/comment',
+      pageview: true,
+      dark: 'html[data-theme="dark"]',
+      comment: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyWaline = () => {
+        destroyWaline(waline)
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const loadWaline = (el, path) => {
+    if (initFn) initWaline(initFn, el, path)
+    else {
+      btf.getCSS('https://unpkg.com/@waline/client/dist/waline.css')
+        .then(() => import('/js/waline.js'))
+        .then(({ init }) => {
+          initFn = init || Waline.init
+          initWaline(initFn, el, path)
+          window.walineFn = initFn
+        })
+    }
+  }
+
+  if (isShuoshuo) {
+    'Waline' === 'Waline'
+      ? window.shuoshuoComment = { loadComment: loadWaline } 
+      : window.loadOtherComment = loadWaline
+    return
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
